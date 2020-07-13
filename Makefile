@@ -10,7 +10,10 @@ check:
 	shellcheck --format=gcc $(SH_SOURCES)
 
 .PHONY: run
-run: check
+run: check run-only
+
+.PHONY: run-only
+run-only:
 	./do-kb-onetime.sh
 	./do-kb.sh
 
@@ -20,3 +23,6 @@ view-docs: ./README.html
 
 %.html: %.md
 	$(MARKDOWN) $< > $@
+
+.PHONY: clean
+	rm *~ README.html

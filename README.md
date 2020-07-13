@@ -1,6 +1,6 @@
 # TL;DR
 
-`make run`, or, if you do not have `make`, just manually run `./do-kb-onetime.sh && ./do-kb.sh`.
+`make run-only`, or, if you do not have `make`, just manually run `./do-kb-onetime.sh && ./do-kb.sh`.
 
 
 # Overview
@@ -43,10 +43,9 @@ keyring.
 
 # FIXME
 
-  - Decide on a license
   - Test via BATS and/or molecule?
-  - Works better on rpm-based distros
-  - These scripts need to run partly as root; an unprivileged option would be nice too.
+  - Work better on rpm-based distros
+  - These scripts need to run partly as root; an unprivileged option would be nice too
 
 
 # References
