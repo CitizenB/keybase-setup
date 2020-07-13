@@ -25,4 +25,5 @@ view-docs: ./README.html
 	$(MARKDOWN) $< > $@
 
 .PHONY: clean
+clean:
 	rm *~ README.html
