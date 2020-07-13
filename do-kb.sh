@@ -8,6 +8,12 @@ declare -r _lib_dir
 # shellcheck source=./do-kb.lib.sh
 . "$_lib_dir/do-kb.lib.sh"
 
-cd "$install_dir"
-sudo dnf install "$install_dir/$(basename "$(keybase_package_url)")"
+pkg="$install_dir/$(basename "$(keybase_package_url)")"
+declare -r pkg
+
+if is_deb_based; then
+    sudo apt install "$pkg"
+else
+    sudo dnf install "$pkg"
+fi
 run_keybase
