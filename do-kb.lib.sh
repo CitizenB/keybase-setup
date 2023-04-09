@@ -1,9 +1,8 @@
 #!/bin/bash
 
-# Note: this is sourced not executed, but use a shebang line for shellcheck
+# Note: this is sourced not executed, but we keep the shebang line above for shellcheck.
 
 # common settings and initialization
-
 set -o pipefail
 set -o errexit
 
@@ -16,9 +15,8 @@ declare -rxi \
 declare -r install_dir=${install_dir:-$HOME/installs/keybase}
 
 # These are the latest versions from https://prerelease.keybase.io as of 2020-07-09 (ignoring non-amd-64, FIXME)
-declare -r version='5.5.1'
-declare -r extra_version='20200527202541.39ca0071e5'
-
+declare -r version='6.0.2'
+declare -r extra_version='20220610191041.a459abf326'
 declare -rx \
     rpm_url="https://s3.amazonaws.com/prerelease.keybase.io/linux_binaries/rpm/keybase-${version}.${extra_version}-1.x86_64.rpm" \
     deb_url="https://s3.amazonaws.com/prerelease.keybase.io/linux_binaries/deb/keybase_${version}-${extra_version}_amd64.deb"

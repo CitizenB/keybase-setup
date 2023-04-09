@@ -43,12 +43,12 @@ keyring.
 
 # FIXME
 
-  - Test via BATS and/or molecule?
-  - Work better on rpm-based distros
-  - These scripts need to run partly as root; an unprivileged option would be nice too
+  - Test via BATS
+  - These scripts need to run partly as root; an [unprivileged][1] option would be nice too.
 
 
-# References
+# Further Reading
+- [Upstream docs](https://keybase.io/docs/the_app/install_linux)
 
-  - [Upstream docs](https://keybase.io/docs/the_app/install_linux)
-  - [Running unprivileged](https://book.keybase.io/guides/linux#installing-keybase-without-root-privileges)
+
+[1]: https://book.keybase.io/guides/linux#installing-keybase-without-root-privileges

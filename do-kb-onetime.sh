@@ -22,9 +22,10 @@ download_file() {
     local -r bn=$(basename "$1")
 
     if [ ! -e "$bn" ]; then
+        # Unfortunately, S3 isn't doing TLS 1.3 yet as of early 2023Q2
         curl --tlsv1.2 --remote-name-all "$_url"
     else
-        : 'already exists, assuming ok (FIXME), later verification will catch if not'
+        : 'already exists, assuming ok, later verification will catch if not'
     fi
 }
 
@@ -35,9 +36,9 @@ download_keybase_key() {
     local -r key_file=code_signing_key.asc
     download_file "https://keybase.io/docs/server_security/$key_file"
 
-    # After visual inspection (as of 2018-06-25)
-    declare -ri expected_key_file_size=6950
-    declare -r expected_key_file_sha512='06c450ee5d65923938fc39bb81d393566dae73c8c86b561e3ade282a144c5564c99027f5606c8810e4b92431ba65a0bee3e146be0d751f166e4ae5c3ff54e4e5'
+    # From manual inspection (as of 2023-04-08)
+    local -ri expected_key_file_size=3106
+    local -r expected_key_file_sha512='651b0e59d1d505a54f69e30c0cb7b40fac93b5a93c8fa6552ce01ce7fb186b1343eb3e2063a1a29634af5b05c416dcfc50bdeeec7f33d56d583ec8f76fb27b97'
 
     echo "Known-good sha512sum: $expected_key_file_sha512"
     echo "Known-good size: $expected_key_file_size"
@@ -56,7 +57,7 @@ download_keybase_key() {
     else
         echo "key file signature matches"
     fi
-    
+
     echo 'Here are the first 20 lines of the keybase public key file:'
     cat -nA "$key_file" | head -n 20 | head -c 5000
     echo
@@ -72,8 +73,13 @@ download_keybase_key() {
     fi
 
     gpg --import "$key_file"
+
     if is_deb_based; then
-        : 'FIXME: apt-key add, maybe?'
+        # FIXME: unused, we just depend on gpg verification, but if we keep this perhaps use
+        # /usr/local/share/keyrings instead.
+        local -r dearmored_file="${key_file%.asc}.gpg"  # if name does not end in .asc, no big deal
+        gpg --dearmor < "$key_file" > "$dearmored_file"
+        sudo install "$dearmored_file" /usr/share/keyrings/keybase-archive-keyring.gpg
     else
         sudo rpm --import "$key_file"
     fi
@@ -89,9 +95,7 @@ download_keybase() {
     download_file "$kb_url"
     download_file "$kb_url.sig"
     gpg --verify "$local_name.sig" "$local_name"
-    if is_deb_based; then
-        : 'FIXME: dpkg-sig --verify ..., maybe?'
-    else
+    if ! is_deb_based; then
         rpm --checksig "$local_name"
     fi
 }

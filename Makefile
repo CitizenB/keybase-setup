@@ -1,4 +1,4 @@
-SH_SOURCES := $(shell find -mindepth 1 -maxdepth 1 \( -name '*.sh' -o -name '.sh.lib' \) | sort)
+SH_SOURCES := $(shell find -mindepth 1 -maxdepth 1 -name '*.sh' | sort)
 
 BROWSER = firefox
 MARKDOWN = markdown
@@ -26,4 +26,4 @@ view-docs: ./README.html
 
 .PHONY: clean
 clean:
-	rm *~ README.html
+	rm -f *~ README.html
