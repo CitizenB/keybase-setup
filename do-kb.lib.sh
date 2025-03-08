@@ -14,9 +14,9 @@ declare -rxi \
 
 declare -r install_dir=${install_dir:-$HOME/installs/keybase}
 
-# These are the latest versions from https://prerelease.keybase.io as of 2020-07-09 (ignoring non-amd-64, FIXME)
-declare -r version='6.0.2'
-declare -r extra_version='20220610191041.a459abf326'
+# These are the latest versions from https://prerelease.keybase.io as of 2025-03-08 (ignoring non-amd64, FIXME)
+declare -r version='6.4.0'
+declare -r extra_version='20240821175720.3212f60cc5'
 declare -rx \
     rpm_url="https://s3.amazonaws.com/prerelease.keybase.io/linux_binaries/rpm/keybase-${version}.${extra_version}-1.x86_64.rpm" \
     deb_url="https://s3.amazonaws.com/prerelease.keybase.io/linux_binaries/deb/keybase_${version}-${extra_version}_amd64.deb"

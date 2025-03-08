@@ -36,7 +36,7 @@ download_keybase_key() {
     local -r key_file=code_signing_key.asc
     download_file "https://keybase.io/docs/server_security/$key_file"
 
-    # From manual inspection (as of 2023-04-08)
+    # From manual inspection (as of 2025-03-08)
     local -ri expected_key_file_size=3106
     local -r expected_key_file_sha512='651b0e59d1d505a54f69e30c0cb7b40fac93b5a93c8fa6552ce01ce7fb186b1343eb3e2063a1a29634af5b05c416dcfc50bdeeec7f33d56d583ec8f76fb27b97'
 
